@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using defaultNamespace;
 using UnityEngine;
@@ -26,7 +27,7 @@ namespace defaultNamespace
             Lacunarity = 1.0f;
             CurrChunk.x = 0;
             CurrChunk.y = 0;
-            System.Random rnJesus = new System.Random(Constants.Seed);
+            // System.Random rnJesus = new System.Random(Constants.Seed);
         }
 
         public float[,] CalcNoise()
@@ -43,12 +44,15 @@ namespace defaultNamespace
             {
                 for (int width = 0; width < Constants.ChunkWidth; width += 1)
                 {
-                    map[height, width] = Mathf.PerlinNoise(height + offset.x, width + offset.y);
+                    Debug.Log(height);
+                    // map[height, width] = Mathf.PerlinNoise((float)height / Constants.ChunkHeight, (float) width / Constants.ChunkWidth);
+                    map[height, width] = Mathf.PerlinNoise((float)height/(float)Constants.ChunkHeight, (float)width/(float)Constants.ChunkWidth);
                     map[height, width] *= scaleFactor;
-                    map[height, width] = Mathf.Clamp(map[height, width], minNoise, maxNoise);
+                    //map[height, width] = Mathf.Clamp(map[height, width], minNoise, maxNoise);
+                    
+                    Debug.Log(map[height, width]);
                 }
             }
-
             return map;
         }
 
