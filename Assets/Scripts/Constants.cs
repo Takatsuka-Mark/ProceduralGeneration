@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 
 public static class Constants
@@ -10,4 +9,5 @@ public static class Constants
     public static int RenderDistance = 3;
     public static float MouseSensitivity = 100.0f;
     public static float MovementSpeed = 100.0f;
+    public static int Seed = 1;
 }
