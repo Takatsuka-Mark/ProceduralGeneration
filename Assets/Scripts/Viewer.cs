@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using defaultNamespace;
 
 public class Viewer : MonoBehaviour
 {
@@ -30,7 +31,8 @@ public class Viewer : MonoBehaviour
     }
     Vector3 getLookDir()
     {
-        
+        Vector3 lookDir = viewerTransform.eulerAngles;
+        Debug.Log(lookDir);
         return Vector3.zero;
     }
 }
