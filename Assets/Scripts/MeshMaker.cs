@@ -1,33 +1,43 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using defaultNamespace;
 using UnityEngine;
 using UnityEngine.UIElements;
-//using defaultNamespace;
+using UnityScript.Lang;
 
-public class MeshMaker
+namespace defaultNamespace
 {
-    private float[,] bwImage = FlatGenNoise.CalcNoise();
-    void Start()
+    public class MeshMaker : MonoBehaviour
     {
-              
-        Mesh flatMesh = new Mesh();        //Instantiate new Mesh
-        Vector3[] vertexArray = convertImage(bwImage);    
-        flatMesh.vertices = vertexArray;
-    }
-
-    Vector3[] convertImage(float[,] bwImage)
-    {
-        foreach (var number in bwImage) //TODO Parallel foreach loop
-        {
-            
+        private FlatGenNoise noiseGen;
+        private float[,] bwImage; 
+        void Start()
+        { 
+            noiseGen = new FlatGenNoise();
+            bwImage = noiseGen.CalcNoise();
+            Mesh flatMesh = new Mesh(); //Instantiate new Mesh
+            Vector3[] vertexArray = ConvertImage(bwImage);
+            flatMesh.vertices = vertexArray;
         }
 
-        return null;
-    }
+        Vector3[] ConvertImage(float[,] bwImage)
+        {
+            int vectorIndex = 0;
+            Vector3[] vectorArray = new Vector3[Constants.ChunkHeight * Constants.ChunkWidth];
+            foreach (var number in bwImage) //TODO Parallel foreach loop
+            {
+                Vector3 vec = new Vector3();
+                vec.Set(0,number, 0);
+                vectorArray[vectorIndex] = vec;
+            }
 
-    public float[,] GetbwImage()
-    {
-        return bwImage;
+            return null;
+        }
+
+        public float[,] GetbwImage()
+        {
+            return bwImage;
+        }
     }
 }

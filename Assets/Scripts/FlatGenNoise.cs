@@ -7,39 +7,42 @@ using static defaultNamespace.Constants;
 /*
  * This will take in parameters, and from those parameters return a map of Perlin noise.
  */
-
-public class FlatGenNoise
+namespace defaultNamespace
 {
-    public float persistance;
-    public float lacunarity;
-    public float[,] map;
-    public Vector2Int currChunk;
-
-    //TODO can do a Vector2Int for the 
-    
-    /// <summary>
-    /// 
-    /// </summary>
-    public FlatGenNoise()
+    public class FlatGenNoise
     {
-        persistance = 1.0f;
-        lacunarity = 1.0f;
-        currChunk.x = 0;
-        currChunk.y = 0;
-    }
+        public float persistance;
+        public float lacunarity;
+        public float[,] map;
+        public Vector2Int currChunk;
 
-    public float[,] CalcNoise()
-    {
-        float[,] map;
-        for (int height = 0; height < Constants.ChunkHeight; height += 1)
+        //TODO can do a Vector2Int for the 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public FlatGenNoise()
         {
-            for (int width = 0; width < Constants.ChunkWidth; width += 1)
-            {
-                
-            }
+            persistance = 1.0f;
+            lacunarity = 1.0f;
+            currChunk.x = 0;
+            currChunk.y = 0;
+            System.Random rnJesus = new System.Random(Constants.Seed);
         }
 
-        return null;
+        public float[,] CalcNoise()
+        {
+
+            for (int height = 0; height < Constants.ChunkHeight; height += 1)
+            {
+                for (int width = 0; width < Constants.ChunkWidth; width += 1)
+                {
+
+                }
+            }
+
+            return null;
+        }
+
     }
-    
 }
