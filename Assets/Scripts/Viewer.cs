@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using defaultNamespace;
 using UnityEngine.Experimental.GlobalIllumination;
+using LightType = UnityEngine.LightType;
 
 public class Viewer : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class Viewer : MonoBehaviour
     private Camera _viewer;
     private Rigidbody _rb;
     private Light _viewerLight;
+    private bool _rotation = true;
     
 
     private float rotX = 0.0f;
@@ -53,6 +55,7 @@ public class Viewer : MonoBehaviour
         _viewerLight = _light.AddComponent(typeof(Light)) as Light;
         System.Diagnostics.Debug.Assert(_viewerLight != null, nameof(_viewerLight) + " != null");
         var transform2 = _viewerLight.transform;
+        _viewerLight.type = LightType.Directional;
         // ReSharper disable once Unity.InefficientPropertyAccess
         transform2.position = rootTransform.position;
         transform2.rotation = rootTransform.rotation;
@@ -64,6 +67,12 @@ public class Viewer : MonoBehaviour
 
     void rotateViewer()
     {
+        if (Input.GetKeyUp(KeyCode.LeftAlt))
+        {
+            _rotation = !_rotation;
+        }
+
+        if (!_rotation) return;
         var rotY = Input.GetAxis("Mouse X") * Constants.MouseSensitivity * Time.deltaTime;
         rotX += Input.GetAxis("Mouse Y") * Constants.MouseSensitivity * Time.deltaTime;
         rotX = Mathf.Clamp(rotX, -90f, 90f);
@@ -75,10 +84,10 @@ public class Viewer : MonoBehaviour
         var trueForward = _viewer.transform.forward + _viewerTransform.forward;
         trueForward = trueForward.normalized;
         
-        // ReSharper disable once CompareOfFloatsByEqualityOperator
-        if (Math.Abs(Input.GetAxisRaw("Vertical")) != 0)
+        Debug.Log(Input.GetAxisRaw("Vertical"));
+        if (Input.GetAxisRaw("Vertical") != 0)
         {
-            _rb.velocity = trueForward * (Constants.MovementSpeed);
+            _rb.velocity = trueForward * (Constants.MovementSpeed * Input.GetAxisRaw("Vertical"));
         }
         else
         {
