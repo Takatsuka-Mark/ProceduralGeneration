@@ -9,7 +9,6 @@ public class FlatTexturing
     //colors according to height
     public Texture2D makeColor()
     {
-        float[,] bwImage = MeshMaker.GetbwImage();
         return null;
     }
     
