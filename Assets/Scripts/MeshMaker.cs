@@ -19,6 +19,7 @@ namespace defaultNamespace
             Mesh flatMesh = new Mesh(); //Instantiate new Mesh
             Vector3[] vertexArray = ConvertImage(bwImage);
             flatMesh.vertices = vertexArray;
+            flatMesh.UploadMeshData(false);
         }
 
         Vector3[] ConvertImage(float[,] bwImage)
