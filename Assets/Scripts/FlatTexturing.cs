@@ -10,9 +10,9 @@ namespace defaultNamespace
     {
         private float[,] bwImage;
         private Texture2D _colors;
-        
-        public FlatTexturing(){ 
-            bwImage = MeshMaker.GetbwImage();
+
+        public FlatTexturing(float[,] bwImage){ 
+            this.bwImage = bwImage;
         }
         
         //Takes in 2d array of nums 0-255 representing colors from black to white and returns texture2d of full range of 
