@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class MeshMaker
 {
-    private float[][] bwImage = FlatGenNoise.CalcNoise();
+    private float[,] bwImage = FlatGenNoise.CalcNoise();
     void Start()
     {
               
@@ -16,7 +16,7 @@ public class MeshMaker
         flatMesh.vertices = vertexArray;
     }
 
-    Vector3[] convertImage(float[][] bwImage)
+    Vector3[] convertImage(float[,] bwImage)
     {
         foreach (var number in bwImage) //TODO Parallel foreach loop
         {
@@ -26,7 +26,7 @@ public class MeshMaker
         return null;
     }
 
-    public float[][] GetbwImage()
+    public float[,] GetbwImage()
     {
         return bwImage;
     }
