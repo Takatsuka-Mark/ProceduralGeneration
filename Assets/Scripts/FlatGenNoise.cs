@@ -51,5 +51,20 @@ namespace defaultNamespace
 
             return map;
         }
+
+        public static float[] Convert2Dto1D(float[,] sacrifice)
+        {
+            float[] map = new float[Constants.ChunkHeight * Constants.ChunkWidth];
+            for (int height = 0; height < Constants.ChunkHeight; height += 1)
+            {
+                for (int width = 0; width < Constants.ChunkWidth; width += 1)
+                {
+                    // Pixels[(int) height * Constants.ChunkWidth + (int) width] = Color.Lerp(Color.black, Color.white, value/255);
+                    map[(int) height * Constants.ChunkWidth + (int) width] = sacrifice[height, width];
+                }
+            }
+
+            return map;
+        }
     }
 }
