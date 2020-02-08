@@ -11,9 +11,9 @@ namespace defaultNamespace
 {
     public class FlatGenNoise
     {
-        public float Persistance;
-        public float Lacunarity;
-        public Vector2Int CurrChunk;
+        private float Persistance;
+        private float Lacunarity;
+        private Vector2Int CurrChunk;
 
         //TODO can do a Vector2Int for the 
 
@@ -35,6 +35,8 @@ namespace defaultNamespace
 
             var maxNoise = 255.0f;
             var minNoise = 0.0f;
+            var scaleFactor = 255;
+            
             Vector2Int offset = new Vector2Int(CurrChunk.x * ChunkHeight, CurrChunk.y * ChunkWidth);
             
             for (int height = 0; height < Constants.ChunkHeight; height += 1)
@@ -42,6 +44,8 @@ namespace defaultNamespace
                 for (int width = 0; width < Constants.ChunkWidth; width += 1)
                 {
                     map[height, width] = Mathf.PerlinNoise(height + offset.x, width + offset.y);
+                    map[height, width] *= scaleFactor;
+                    map[height, width] = Mathf.Clamp(map[height, width], minNoise, maxNoise);
                 }
             }
 
