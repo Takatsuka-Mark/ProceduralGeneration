@@ -10,12 +10,12 @@ namespace defaultNamespace
     public class FlatTexturing
     {
         private float[,] bwImage;
-        private Texture2D Colors;
+        // private Texture2D Colors;
         private Color[] Pixels;
 
         public FlatTexturing(float[,] bwImage){ 
             this.bwImage = bwImage;
-            Colors = new Texture2D(Constants.ChunkWidth, Constants.ChunkHeight);
+            // Colors = new Texture2D(Constants.ChunkWidth, Constants.ChunkHeight);
             Pixels = new Color[Constants.ChunkWidth * Constants.ChunkHeight];
         }
         
