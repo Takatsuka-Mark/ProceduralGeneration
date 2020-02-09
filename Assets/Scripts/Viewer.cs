@@ -66,8 +66,6 @@ public class Viewer : MonoBehaviour
         transform2.rotation = rootTransform.rotation;
         transform2.parent = rootTransform;
         _viewerLight.name = "ViewerLight";
-
-
     }
 
     /// <summary>
