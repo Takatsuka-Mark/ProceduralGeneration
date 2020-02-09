@@ -17,8 +17,7 @@ public class Viewer : MonoBehaviour
     private Light _viewerLight;
     private bool _rotation = true;
     
-
-    private float rotX = 0.0f;
+    private float _rotX;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,14 +32,19 @@ public class Viewer : MonoBehaviour
         viewerMove();
     }
 
+    /// <summary>
+    /// Initializes the objects of the viewer group in the actual unity
+    /// </summary>
     void init()
     {
+        //Creates the root empty object to group all the viewer items together
         _root = new GameObject();
         _rb = _root.AddComponent(typeof(Rigidbody)) as Rigidbody;
         _rb.useGravity = false;
         _viewerTransform = _root.transform;
         _root.name = "Viewer Group";
         
+        //Creates the main camera object 
         _cam = new GameObject();
         _viewer = _cam.AddComponent(typeof(Camera)) as Camera;
         System.Diagnostics.Debug.Assert(_viewer != null, nameof(_viewer) + " != null");
@@ -51,6 +55,7 @@ public class Viewer : MonoBehaviour
         transform1.parent = _root.transform;
         _viewer.name = "ViewerCamera";
 
+        //Creates the light so the viewer can always see
         _light = new GameObject();
         _viewerLight = _light.AddComponent(typeof(Light)) as Light;
         System.Diagnostics.Debug.Assert(_viewerLight != null, nameof(_viewerLight) + " != null");
@@ -65,6 +70,9 @@ public class Viewer : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Handles the looking around of the viewer
+    /// </summary>
     void rotateViewer()
     {
         if (Input.GetKeyUp(KeyCode.LeftAlt))
@@ -74,11 +82,15 @@ public class Viewer : MonoBehaviour
 
         if (!_rotation) return;
         var rotY = Input.GetAxis("Mouse X") * Constants.MouseSensitivity * Time.deltaTime;
-        rotX += Input.GetAxis("Mouse Y") * Constants.MouseSensitivity * Time.deltaTime;
-        rotX = Mathf.Clamp(rotX, -90f, 90f);
+        _rotX += Input.GetAxis("Mouse Y") * Constants.MouseSensitivity * Time.deltaTime;
+        _rotX = Mathf.Clamp(_rotX, -90f, 90f);
         _viewerTransform.Rotate(Vector3.up * rotY);
-        _viewer.transform.localRotation = Quaternion.Euler(-rotX, 0f, 0f);
+        _viewer.transform.localRotation = Quaternion.Euler(-_rotX, 0f, 0f);
     }
+    
+    /// <summary>
+    /// Handles all the movement of the viewer group
+    /// </summary>
     void viewerMove()
     {
         var trueForward = _viewer.transform.forward + _viewerTransform.forward;
@@ -89,8 +101,9 @@ public class Viewer : MonoBehaviour
         Debug.Log(horizontal + " " + vertical + " " + _viewer.transform.right);
 
         if (vertical != 0 || horizontal != 0 )
-            _rb.velocity = (trueForward * vertical + (_viewer.transform.right + _viewerTransform.right).normalized * horizontal) * Constants.MovementSpeed;
-        // _rb.velocity = (_viewer.transform.right + _viewerTransform.right).normalized *(Constants.MovementSpeed * horizontal);
+            _rb.velocity = (trueForward * vertical + 
+                            (_viewer.transform.right + _viewerTransform.right).normalized * horizontal)
+                            * Constants.MovementSpeed;
         else
             _rb.velocity = Vector3.zero;
     }
