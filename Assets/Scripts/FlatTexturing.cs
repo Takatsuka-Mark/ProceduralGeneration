@@ -21,7 +21,7 @@ namespace defaultNamespace
         
         //Takes in 2d array of nums 0-255 representing colors from black to white and returns texture2d of full range of 
         //colors according to height
-        public Texture2D makeColor()
+        public Color[] makeColor()
         {
 
             for (int height = 0; height < Constants.ChunkHeight; height += 1)
@@ -47,9 +47,9 @@ namespace defaultNamespace
                     }
                 }
             }
-            Colors.SetPixels(Pixels);
-            Colors.Apply();
-            return Colors;
+            // Colors.SetPixels(Pixels);
+            // Colors.Apply();
+            return Pixels;
         }
     }
 }
