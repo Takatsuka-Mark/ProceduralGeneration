@@ -5,7 +5,7 @@ namespace defaultNamespace
     public class MeshMaker : MonoBehaviour
     {
         private FlatGenNoise _noiseGen;
-        private float[,] _bwImage;
+        private float[] _bwImage;
         private Vector3[] _vertexArray;
         private FlatTexturing _flatTexturing;
         void Start()
@@ -28,14 +28,13 @@ namespace defaultNamespace
 
         Vector3[] AddFloatNoise(Vector3[] vertexArray)
         {
-            var bwImage1D = FlatGenNoise.Convert2Dto1D(_bwImage);
             for (int i = 0; i < vertexArray.Length; i++)
             {
-                vertexArray[i] += Vector3.up * (bwImage1D[i] * (float).1);
+                vertexArray[i] += Vector3.up * (_bwImage[i] * (float).1);
             }
             return vertexArray;
         }
-        public float[,] GetbwImage()
+        public float[] GetbwImage()
         {
             return _bwImage;
         }
