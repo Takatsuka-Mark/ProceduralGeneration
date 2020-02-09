@@ -76,7 +76,7 @@ namespace defaultNamespace
         /// <returns> Float 2D array, indexed as [height][width], with values 0 to 1 </returns>
         public float[,] getNoiseRect(int maxHeight, int maxWidth)
         {
-                        float[,] map = new float[maxHeight, maxWidth];
+            float[,] map = new float[maxHeight, maxWidth];
 
             Vector2[] offset = new Vector2[NumOctaves];
             for (int i = 0; i < NumOctaves; i++)
@@ -118,5 +118,4 @@ namespace defaultNamespace
             return map;
         }
     }
-
 }

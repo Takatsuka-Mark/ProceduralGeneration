@@ -11,6 +11,6 @@ namespace defaultNamespace
         public static int RenderDistance = 3;
         public static float MouseSensitivity = 100.0f;
         public static float MovementSpeed = 10.0f;
-        public static int Seed = 255;
+        public static int Seed = 1;
     }
 }
