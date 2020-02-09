@@ -1,68 +1,42 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using defaultNamespace;
-using UnityEngine;
-using UnityEngine.UIElements;
-using UnityScript.Lang;
+﻿using UnityEngine;
 
 namespace defaultNamespace
 {
     public class MeshMaker : MonoBehaviour
     {
-        private FlatGenNoise noiseGen;
-        private float[,] bwImage;
-        private Vector3[] vertexArray;
+        private FlatGenNoise _noiseGen;
+        private float[] _bwImage;
+        private Vector3[] _vertexArray;
+        private FlatTexturing _flatTexturing;
         void Start()
         {
-            noiseGen = new FlatGenNoise();
-            bwImage = noiseGen.CalcNoise();
+            _noiseGen = new FlatGenNoise();
+            _bwImage = _noiseGen.CalcNoise();
+            _flatTexturing = new FlatTexturing(_bwImage);
             
             Mesh flatMesh = GetComponent<MeshFilter>().mesh; //Instantiate new Mesh
-            vertexArray = flatMesh.vertices;
-            vertexArray = AddFloatNoise(vertexArray);
-            flatMesh.SetVertices(vertexArray);
-            flatMesh.UploadMeshData(false);
+            Color[] color = _flatTexturing.makeColor();
+            flatMesh.SetColors(color);
+            _vertexArray = flatMesh.vertices;
+            _vertexArray = AddFloatNoise(_vertexArray);
+            flatMesh.SetVertices(_vertexArray);
+
+            
+            flatMesh.UploadMeshData(true);
             flatMesh.RecalculateBounds();
         }
 
         Vector3[] AddFloatNoise(Vector3[] vertexArray)
         {
-            var bwImage1D = FlatGenNoise.Convert2Dto1D(bwImage);
             for (int i = 0; i < vertexArray.Length; i++)
             {
-                vertexArray[i] += Vector3.up * (bwImage1D[i] * (float).01);
+                vertexArray[i] += Vector3.up * (_bwImage[i] * (float).1);
             }
             return vertexArray;
         }
-        public float[,] GetbwImage()
+        public float[] GetbwImage()
         {
-            return bwImage;
+            return _bwImage;
         }
     }
 }
-// using UnityEngine;
-//
-// public class MeshMaker : MonoBehaviour
-// {
-//     Mesh mesh;
-//     Vector3[] vertices;
-//     void Start()
-//     {
-//         mesh = GetComponent<MeshFilter>().mesh;
-//         vertices = mesh.vertices;
-//     }
-//
-//     void Update()
-//     {
-//         for (var i = 0; i < vertices.Length; i++)
-//         {
-//             vertices[i] += Vector3.up * Time.deltaTime;
-//         }
-//
-//         // assign the local vertices array into the vertices array of the Mesh.
-//         mesh.vertices = vertices;
-//         mesh.RecalculateBounds();
-//     }
-// }

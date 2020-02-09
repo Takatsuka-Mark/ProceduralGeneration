@@ -12,51 +12,23 @@ namespace defaultNamespace
 {
     public class FlatGenNoise
     {
-        private float Persistance;
-        private float Lacunarity;
-        private Vector2Int CurrChunk;
-
+        private Noise noiseGen;
+        
         //TODO can do a Vector2Int for the 
-
         /// <summary>
         /// 
         /// </summary>
         public FlatGenNoise()
         {
-            Persistance = 1.0f;
-            Lacunarity = 1.0f;
-            CurrChunk.x = 0;
-            CurrChunk.y = 0;
-            // System.Random rnJesus = new System.Random(Constants.Seed);
+            noiseGen = new Noise();
         }
 
-        public float[,] CalcNoise()
+        public float[] CalcNoise()
         {
-            float[,] map = new float[Constants.ChunkHeight,Constants.ChunkWidth];
-
-            var maxNoise = 255.0f;
-            var minNoise = 0.0f;
-            var scaleFactor = 255;
-            
-            Vector2Int offset = new Vector2Int(CurrChunk.x * ChunkHeight, CurrChunk.y * ChunkWidth);
-            
-            for (int height = 0; height < Constants.ChunkHeight; height += 1)
-            {
-                for (int width = 0; width < Constants.ChunkWidth; width += 1)
-                {
-                    Debug.Log(height);
-                    // map[height, width] = Mathf.PerlinNoise((float)height / Constants.ChunkHeight, (float) width / Constants.ChunkWidth);
-                    map[height, width] = Mathf.PerlinNoise((float)height/(float)Constants.ChunkHeight, (float)width/(float)Constants.ChunkWidth);
-                    map[height, width] *= scaleFactor;
-                    //map[height, width] = Mathf.Clamp(map[height, width], minNoise, maxNoise);
-                    
-                    Debug.Log(map[height, width]);
-                }
-            }
-            return map;
+            return Convert2Dto1D(noiseGen.getNoise());
         }
 
-        public static float[] Convert2Dto1D(float[,] sacrifice)
+        private float[] Convert2Dto1D(float[,] sacrifice)
         {
             float[] map = new float[Constants.ChunkHeight * Constants.ChunkWidth];
             for (int height = 0; height < Constants.ChunkHeight; height += 1)
