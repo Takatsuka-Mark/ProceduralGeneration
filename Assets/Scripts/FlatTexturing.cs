@@ -29,19 +29,19 @@ namespace defaultNamespace
                 for (int width = 0; width < Constants.ChunkWidth; width += 1)
                 {
                     var value = bwImage[height, width];
-                    if (value < 75.0) //20,20,20
+                    if (value < 75.0) //20,20,20 - black
                     {
                         Pixels[(int) height * Constants.ChunkHeight + (int) width] = new Color(20, 20, 20);
                     }
-                    else if (value < 155.0) //140,62,14
+                    else if (value < 155.0) //140,62,14 - brown
                     {
                         Pixels[(int) height * Constants.ChunkHeight + (int) width] = new Color(140, 62, 14);
                     }
-                    else if (value < 185.0) //10,145,15
+                    else if (value < 185.0) //10,145,15 - green
                     {
                         Pixels[(int) height * Constants.ChunkHeight + (int) width] = new Color(10, 145, 15);
                     }
-                    else //203,243,255
+                    else //203,243,255 - light blue
                     {
                         Pixels[(int) height * Constants.ChunkHeight + (int) width] = new Color(203, 243, 255);
                     }

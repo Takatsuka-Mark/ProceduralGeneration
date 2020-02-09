@@ -83,15 +83,15 @@ public class Viewer : MonoBehaviour
     {
         var trueForward = _viewer.transform.forward + _viewerTransform.forward;
         trueForward = trueForward.normalized;
+        var horizontal = Input.GetAxisRaw("Horizontal");
+        var vertical = Input.GetAxisRaw("Vertical");
         
-        Debug.Log(Input.GetAxisRaw("Vertical"));
-        if (Input.GetAxisRaw("Vertical") != 0)
-        {
-            _rb.velocity = trueForward * (Constants.MovementSpeed * Input.GetAxisRaw("Vertical"));
-        }
+        Debug.Log(horizontal + " " + vertical + " " + _viewer.transform.right);
+
+        if (vertical != 0 || horizontal != 0 )
+            _rb.velocity = (trueForward * vertical + (_viewer.transform.right + _viewerTransform.right).normalized * horizontal) * Constants.MovementSpeed;
+        // _rb.velocity = (_viewer.transform.right + _viewerTransform.right).normalized *(Constants.MovementSpeed * horizontal);
         else
-        {
             _rb.velocity = Vector3.zero;
-        }
     }
 }
