@@ -6,11 +6,12 @@ namespace defaultNamespace
 {
     public static class Constants
     {
-        public static int ChunkHeight = 100;
-        public static int ChunkWidth = 100;
-        public static int RenderDistance = 3;
-        public static float MouseSensitivity = 100.0f;
-        public static float MovementSpeed = 10.0f;
-        public static int Seed = 255;
+        public const int ChunkHeight = 100;
+        public const int ChunkWidth = 100;
+        public const int RenderDistance = 3;
+        public const float MouseSensitivity = 100.0f;
+        public const float MovementSpeed = 10.0f;
+        public const int Seed = 255;
+        public const float Epsilon = 0.0001f;
     }
 }
