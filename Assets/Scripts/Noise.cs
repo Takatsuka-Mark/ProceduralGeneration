@@ -24,7 +24,16 @@ namespace defaultNamespace
 
             var maxNoise = 255.0f;
             var minNoise = 0.0f;
-            var scaleFactor = 0.0001f;
+            var scaleFactor = 0.0f;
+            
+            
+            
+            if (scaleFactor <= 0)
+            {
+                scaleFactor = 0.0001f;
+            }
+            // var scaleFactor = 0.0001f;
+            scaleFactor = 25.1f;
 
             Vector2Int offset = new Vector2Int(CurrChunk.x * Constants.ChunkHeight, CurrChunk.y * Constants.ChunkWidth);
             

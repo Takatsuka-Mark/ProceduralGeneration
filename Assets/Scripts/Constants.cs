@@ -6,8 +6,8 @@ namespace defaultNamespace
 {
     public static class Constants
     {
-        public static int ChunkHeight = 250;
-        public static int ChunkWidth = 250;
+        public static int ChunkHeight = 100;
+        public static int ChunkWidth = 100;
         public static int RenderDistance = 3;
         public static float MouseSensitivity = 100.0f;
         public static float MovementSpeed = 10.0f;

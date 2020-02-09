@@ -47,13 +47,11 @@ public class DisplayNoise : MonoBehaviour
 
     void LoadMapIntoPixels()
     {
-
         float[] map = NoiseGenerator.CalcNoise();
         for (int i = 0; i < Constants.ChunkHeight * Constants.ChunkWidth; i += 1)
         {
-            var value = map[i];
-                Pixels[i] = Color.Lerp(Color.black, Color.white, value);
-                //Pixels[(int) height * Constants.ChunkWidth + (int) width] = new Color(value/255, value/255, value/255, 1);
+            Pixels[i] = Color.Lerp(Color.black, Color.white, map[i]);
+            //Pixels[(int) height * Constants.ChunkWidth + (int) width] = new Color(value/255, value/255, value/255, 1);
         }
     }
 }
