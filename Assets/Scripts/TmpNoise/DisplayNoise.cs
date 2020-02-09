@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using defaultNamespace;
+using UnityEditor.UI;
 using UnityEngine;
 
 public class DisplayNoise : MonoBehaviour
@@ -11,19 +12,22 @@ public class DisplayNoise : MonoBehaviour
     private Color[] Pixels;
 
 
+    public int seed = 0;
+    public int NumOctaves = 4;
+    public float Persistance = 0.5f;
+    public float Lacunarity = 1.87f;
+    public float ScaleFactor = 27.6f;
+
     // Start is called before the first frame update
     void Start()
     {
-
         
-        // textureRenderer = GetComponent<Renderer>();
-        // textureRenderer.material.SetTexture("_MainTex", NoiseTexture);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        generateNoise();
         NoiseTexture.SetPixels(Pixels);
         NoiseTexture.Apply();
         textureRenderer.sharedMaterial.mainTexture = NoiseTexture;
@@ -36,7 +40,8 @@ public class DisplayNoise : MonoBehaviour
     {
         NoiseTexture = new Texture2D(Constants.ChunkWidth, Constants.ChunkHeight);
         Pixels = new Color[Constants.ChunkWidth * Constants.ChunkHeight];
-        NoiseGenerator = new FlatGenNoise();
+        NoiseGenerator = new FlatGenNoise(seed, new Vector2Int(0, 0), Persistance, Lacunarity, NumOctaves, ScaleFactor);
+        // NoiseGenerator = new FlatGenNoise();
 
         LoadMapIntoPixels();
         NoiseTexture.SetPixels(Pixels);
