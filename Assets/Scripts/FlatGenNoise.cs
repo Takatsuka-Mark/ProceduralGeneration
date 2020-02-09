@@ -22,6 +22,11 @@ namespace defaultNamespace
         {
             noiseGen = new Noise();
         }
+        
+        public FlatGenNoise(int seed, Vector2Int currChunk, float persistance, float lacunarity, int numOctaves, float scaleFactor)
+        {
+            noiseGen = new Noise(seed, currChunk, persistance, lacunarity, numOctaves, scaleFactor);
+        }
 
         public float[] CalcNoise()
         {
