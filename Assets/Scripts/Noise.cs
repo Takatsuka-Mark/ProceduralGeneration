@@ -24,7 +24,7 @@ namespace defaultNamespace
 
             var maxNoise = 255.0f;
             var minNoise = 0.0f;
-            var scaleFactor = 0.1f;
+            var scaleFactor = 0.0001f;
 
             Vector2Int offset = new Vector2Int(CurrChunk.x * Constants.ChunkHeight, CurrChunk.y * Constants.ChunkWidth);
             
@@ -35,7 +35,7 @@ namespace defaultNamespace
                     float sampleX = (float)height/(float)scaleFactor;
                     float sampleY = (float)width/(float)scaleFactor;
                     map[height, width] = Mathf.PerlinNoise(sampleX, sampleY);
-                    map[height, width] *= scaleFactor;
+                    // map[height, width] *= scaleFactor;
                 }
             }
             return map;

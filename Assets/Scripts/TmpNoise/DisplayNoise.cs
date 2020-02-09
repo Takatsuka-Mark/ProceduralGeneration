@@ -52,7 +52,7 @@ public class DisplayNoise : MonoBehaviour
         for (int i = 0; i < Constants.ChunkHeight * Constants.ChunkWidth; i += 1)
         {
             var value = map[i];
-                Pixels[i] = Color.Lerp(Color.black, Color.white, value/255);
+                Pixels[i] = Color.Lerp(Color.black, Color.white, value);
                 //Pixels[(int) height * Constants.ChunkWidth + (int) width] = new Color(value/255, value/255, value/255, 1);
         }
     }
