@@ -41,6 +41,7 @@ public class DisplayNoise : MonoBehaviour
         NoiseTexture = new Texture2D(Constants.ChunkWidth, Constants.ChunkHeight);
         Pixels = new Color[Constants.ChunkWidth * Constants.ChunkHeight];
         NoiseGenerator = new FlatGenNoise(seed, new Vector2Int(0, 0), Persistance, Lacunarity, NumOctaves, ScaleFactor);
+        // NoiseGenerator = new FlatGenNoise();
 
         LoadMapIntoPixels();
         NoiseTexture.SetPixels(Pixels);

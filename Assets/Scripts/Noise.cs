@@ -40,10 +40,10 @@ namespace defaultNamespace
             CurrChunk.x = 0;
             CurrChunk.y = 0;
             
-            NumOctaves = 4;
-            Persistance = 0.5f;
-            Lacunarity = 1.87f;
-            ScaleFactor = 27.6f;
+            NumOctaves = 14;
+            Persistance = 0.31f;
+            Lacunarity = 2.25f;
+            ScaleFactor = 23.43f;
             
             rnJesus = new System.Random(Constants.Seed);
         }
@@ -62,11 +62,21 @@ namespace defaultNamespace
         
         
         /// <summary>
+        /// This is a less general form of getNoiseRect, it will use the chunk height and width
+        /// </summary>
+        /// <returns></returns>
+        public float[,] getNoise()
+        {
+            return getNoiseRect(Constants.ChunkHeight, Constants.ChunkWidth);
+        }
+
+        /// <summary>
         /// This function will generate noise, and output a float array with the noise.
         /// </summary>
         /// <returns> Float 2D array, indexed as [height][width], with values 0 to 1 </returns>
-        public float[,] getNoise(){
-            float[,] map = new float[Constants.ChunkHeight,Constants.ChunkWidth];
+        public float[,] getNoiseRect(int maxHeight, int maxWidth)
+        {
+                        float[,] map = new float[maxHeight, maxWidth];
 
             Vector2[] offset = new Vector2[NumOctaves];
             for (int i = 0; i < NumOctaves; i++)
@@ -81,9 +91,9 @@ namespace defaultNamespace
                 ScaleFactor = 0.0001f;
             }
             
-            for (int height = 0; height < Constants.ChunkHeight; height += 1)
+            for (int height = 0; height < maxHeight; height += 1)
             {
-                for (int width = 0; width < Constants.ChunkWidth; width += 1)
+                for (int width = 0; width < maxWidth; width += 1)
                 {
                     var heightAccum = 0.0f;
                     var amplitude = 1.0f;
@@ -94,7 +104,7 @@ namespace defaultNamespace
                     {
                         var sampleX = height / ScaleFactor * frequency + offset[i].x;
                         var sampleY = width / ScaleFactor * frequency + offset[i].y;
-                        var noiseValue = Mathf.PerlinNoise(sampleX, sampleY);    // figure out why * 2 - 1
+                        var noiseValue = Mathf.PerlinNoise(sampleX, sampleY);
 
                         heightAccum += noiseValue * amplitude;
                         amplitude *= Persistance;
@@ -102,20 +112,8 @@ namespace defaultNamespace
                     }
 
                     map[height, width] = Mathf.Clamp(heightAccum, minNoise, maxNoise);
-                    
-                    // Debug.Log(map[height,width]);
-                    // map[height, width] = Mathf.Clamp(map[height, width], minNoise, maxNoise);
                 }
             }
-
-            // for (int height = 0; height < Constants.ChunkHeight; height += 1)
-            // {
-            //     for (int width = 0; width < Constants.ChunkWidth; width += 1)
-            //     {
-            //         map[height, width] = Mathf.InverseLerp(minNoise, maxNoise, map[height, width]);
-            //         // Debug.Log(map[height,width]);
-            //     }
-            // }
 
             return map;
         }
