@@ -7,10 +7,17 @@ using UnityEngine.PlayerLoop;
 public class Planet : MonoBehaviour
 {
     [Range(2, 256)] public int resolution = 10;
-
+    public bool autoUpdate = true;
+    
+    
     public ShapeSettings ShapeSettings;
     public ColorSettings ColorSettings;
 
+    [HideInInspector]
+    public bool shapeSettingsFoldout;
+    [HideInInspector]
+    public bool colorSettingsFoldout;
+    
     private ShapeGenerator _shapeGenerator;
     
     [SerializeField, HideInInspector]    // this hides, but also allows them to be saved.
@@ -27,6 +34,7 @@ public class Planet : MonoBehaviour
     void init()
     {
         _shapeGenerator = new ShapeGenerator(ShapeSettings);
+        
         // we only want to create new filters the first time
         if (meshFilters == null || meshFilters.Length == 0)
         {
@@ -62,14 +70,20 @@ public class Planet : MonoBehaviour
 
     public void OnColorSettingsUpdated()
     {
-        init();
-        GenerateColors();
+        if (autoUpdate)
+        {
+            init();
+            GenerateColors();
+        }
     }
 
     public void OnShapeSettingsUpdated()
     {
-        init();
-        GenerateMesh();
+        if (autoUpdate)
+        {
+            init();
+            GenerateMesh();
+        }
     }
 
     void GenerateMesh()
