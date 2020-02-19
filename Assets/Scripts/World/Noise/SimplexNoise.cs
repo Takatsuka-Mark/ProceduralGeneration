@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 /*
  *
@@ -41,6 +42,11 @@ namespace defaultNamespace
 
         private int RandomSize = 256;
 
+        public SimplexNoise()
+        {
+            RandomizeSource(66);
+        }
+        
         public SimplexNoise(int seed)
         {
             RandomizeSource(Constants.Seed);

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using defaultNamespace;
 using UnityEngine;
 
-public class NoiseFilter
+public class BasicNoiseFilter : NoiseFilter
 {
-    private SimplexNoise noise = new SimplexNoise(0);
+    private SimplexNoise noise = new SimplexNoise();
     // Noise noise = new Noise();
-    private NoiseSettings settings;
+    private NoiseSettings.BasicNoiseSettings settings;
 
-    public NoiseFilter(NoiseSettings settings)
+    public BasicNoiseFilter(NoiseSettings.BasicNoiseSettings settings)
     {
         this.settings = settings;
     }
